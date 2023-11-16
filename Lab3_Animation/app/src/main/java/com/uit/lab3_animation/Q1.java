@@ -35,6 +35,8 @@ public class Q1 extends AppCompatActivity {
         btnFadeInCode = findViewById(R.id.btn_fade_in_code);
         btnFadeOutXml = findViewById(R.id.btn_fade_out_xml);
         btnFadeOutCode = findViewById(R.id.btn_fade_out_code);
+        btnBlinkXml = findViewById(R.id.btn_blink_xml);
+        btnBlinkCode = findViewById(R.id.btn_blink_code);
     }
     private void setupClickListeners() {
         //Fade in
@@ -67,11 +69,26 @@ public class Q1 extends AppCompatActivity {
                 ivUitLogo.startAnimation(startFadeOutAnimationCode());
             }
         });
+        //Blink
+        btnBlinkXml.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call a method to start fade-in animation
+                startBlinkAnimationXML();
+            }
+        });
+
+        btnBlinkCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call a method to start fade-in animation
+                ivUitLogo.startAnimation(startBlinkAnimationCode());
+            }
+        });
 
     }
 
     //Fade in
-
     private void startFadeInAnimationXML() {
         Animation fadeInXML = AnimationUtils.loadAnimation(this, R.anim.anim_fade_in);
         fadeInXML.setAnimationListener(animationListener);
@@ -84,6 +101,7 @@ public class Q1 extends AppCompatActivity {
         fadeInCode.setAnimationListener(animationListener);
         return fadeInCode;
     }
+
     //Fade out
     private void startFadeOutAnimationXML() {
         Animation fadeOutXML = AnimationUtils.loadAnimation(this, R.anim.anim_fade_out);
@@ -96,7 +114,24 @@ public class Q1 extends AppCompatActivity {
         fadeOutCode.setFillAfter(true);
         fadeOutCode.setAnimationListener(animationListener);
         return fadeOutCode;
+    }
 
-
+    //Blink
+    private void startBlinkAnimationXML() {
+        Animation blinkXML = AnimationUtils.loadAnimation(this, R.anim.anim_blink);
+        blinkXML.setAnimationListener(animationListener);
+        ivUitLogo.startAnimation(blinkXML);
+    }
+    private AlphaAnimation startBlinkAnimationCode() {
+        AlphaAnimation blinkCode = new AlphaAnimation(0f, 1f);
+        blinkCode.setDuration(300);
+        blinkCode.setRepeatMode(Animation.REVERSE); // Use setRepeatMode instead of getRepeatMode
+        blinkCode.setRepeatCount(3);
+//         android:toAlpha="1.0"
+//        android:duration="300"
+//        android:repeatMode="reverse"
+//        android:repeatCount="3"/>
+        blinkCode.setAnimationListener(animationListener);
+        return blinkCode;
     }
 }
