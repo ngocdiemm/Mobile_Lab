@@ -5,20 +5,27 @@
     android:layout_height="match_parent"
     tools:context=".Q2">
 
-    <ListView
-        android:id="@+id/listView"
+    <EditText
+        android:id="@+id/editText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/btnSubmit"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Nhập dữ liệu"/>
 
     <Button
         android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/editText"
         android:text="Nhập"/>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/btnSubmit"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"/>
 
     <TextView
         android:id="@+id/selectedTextView"

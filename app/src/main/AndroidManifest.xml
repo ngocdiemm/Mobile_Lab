@@ -13,10 +13,10 @@
         android:theme="@style/Theme.Lab2_ListView"
         tools:targetApi="31">
         <activity
-            android:name=".Q2"
+            android:name=".Q1"
             android:exported="false" />
         <activity
-            android:name=".Q1"
+            android:name=".Q2"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

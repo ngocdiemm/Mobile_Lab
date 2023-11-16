@@ -1,8 +1,13 @@
+package com.uit.lab2_listview;
+
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +22,7 @@ public class Q2 extends AppCompatActivity {
     private ListView listView;
     private TextView selectedTextView;
     private Button btnSubmit;
+    private EditText editText;
     private ArrayList<String> names;
     private ArrayAdapter<String> adapter;
 
@@ -28,6 +34,7 @@ public class Q2 extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         selectedTextView = findViewById(R.id.selectedTextView);
         btnSubmit = findViewById(R.id.btnSubmit);
+        editText = findViewById(R.id.editText);
 
         names = new ArrayList<>();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
@@ -36,11 +43,15 @@ public class Q2 extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Thêm dữ liệu mới vào ArrayList
-                names.add("New Name");
-
-                //Cập nhật dữ liệu mới lên giao diện
-                adapter.notifyDataSetChanged();
+                //Thêm dữ liệu từ EditText vào ArrayList
+                String inputText = editText.getText().toString();
+                if (!inputText.isEmpty()) {
+                    names.add(inputText);
+                    //Cập nhật dữ liệu mới lên giao diện
+                    adapter.notifyDataSetChanged();
+                    //Xóa nội dung trong EditText sau khi thêm vào ArrayList
+                    editText.getText().clear();
+                }
             }
         });
 
@@ -64,6 +75,23 @@ public class Q2 extends AppCompatActivity {
                 Toast.makeText(Q2.this, "Đã xóa phần tử", Toast.LENGTH_SHORT).show();
 
                 return true;
+            }
+        });
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
+                // Không cần xử lý trước khi thay đổi văn bản
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                // Hiển thị văn bản đang nhập trên TextView
+                selectedTextView.setText(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Không cần xử lý sau khi thay đổi văn bản
             }
         });
     }
