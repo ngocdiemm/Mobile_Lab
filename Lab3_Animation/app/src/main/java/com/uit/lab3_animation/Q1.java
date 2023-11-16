@@ -2,6 +2,7 @@ package com.uit.lab3_animation;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -25,64 +26,77 @@ public class Q1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_q1);
-
         findViewsByIds();
-        initVariables();
-        final Animation animation = AnimationUtils.loadAnimation(Q1.this, R.anim.anim_fade_in);
         setupClickListeners();
     }
     private void findViewsByIds() {
         ivUitLogo = findViewById(R.id.iv_uit_logo);
         btnFadeInXml = findViewById(R.id.btn_fade_in_xml);
         btnFadeInCode = findViewById(R.id.btn_fade_in_code);
-        // ... Repeat for other buttons
+        btnFadeOutXml = findViewById(R.id.btn_fade_out_xml);
+        btnFadeOutCode = findViewById(R.id.btn_fade_out_code);
     }
-
-    private void initVariables() {
-        animationListener = new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                // Handle onAnimationStart if needed
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                toast.makeText(getApplicationContext(), "Animation Stopped",
-                        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-                // Handle onAnimationRepeat if needed
-            }
-        };
-    }
-
     private void setupClickListeners() {
+        //Fade in
         btnFadeInXml.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Call a method to start fade-in animation
-                startFadeInAnimation();
+                startFadeInAnimationXML();
             }
         });
 
         btnFadeInCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ivUitLogo.startAnimation(startFadeInAnimationCode());
+            }
+        });
+        //Fade out
+        btnFadeOutXml.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 // Call a method to start fade-in animation
-                startFadeInAnimation();
+                startFadeOutAnimationXML();
             }
         });
 
-        // Repeat for other buttons
+        btnFadeOutCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call a method to start fade-in animation
+                ivUitLogo.startAnimation(startFadeOutAnimationCode());
+            }
+        });
+
     }
 
-    private void startFadeInAnimation() {
-        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.anim_fade_in);
-        fadeIn.setAnimationListener(animationListener);
-        ivUitLogo.startAnimation(fadeIn);
-    }
+    //Fade in
 
-    // Define methods for other animations as needed
+    private void startFadeInAnimationXML() {
+        Animation fadeInXML = AnimationUtils.loadAnimation(this, R.anim.anim_fade_in);
+        fadeInXML.setAnimationListener(animationListener);
+        ivUitLogo.startAnimation(fadeInXML);
+    }
+    private AlphaAnimation startFadeInAnimationCode() {
+        AlphaAnimation fadeInCode = new AlphaAnimation(0f, 1f);
+        fadeInCode.setDuration(3000);
+        fadeInCode.setFillAfter(true);
+        fadeInCode.setAnimationListener(animationListener);
+        return fadeInCode;
+    }
+    //Fade out
+    private void startFadeOutAnimationXML() {
+        Animation fadeOutXML = AnimationUtils.loadAnimation(this, R.anim.anim_fade_out);
+        fadeOutXML.setAnimationListener(animationListener);
+        ivUitLogo.startAnimation(fadeOutXML);
+    }
+    private AlphaAnimation startFadeOutAnimationCode() {
+        AlphaAnimation fadeOutCode = new AlphaAnimation(0f, 1f);
+        fadeOutCode.setDuration(3000);
+        fadeOutCode.setFillAfter(true);
+        fadeOutCode.setAnimationListener(animationListener);
+        return fadeOutCode;
+
+
+    }
 }
