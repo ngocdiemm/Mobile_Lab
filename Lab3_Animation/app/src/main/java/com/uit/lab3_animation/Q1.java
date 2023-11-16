@@ -41,6 +41,8 @@ public class Q1 extends AppCompatActivity {
         btnBlinkCode = findViewById(R.id.btn_blink_code);
         btnZoomInXml = findViewById(R.id.btn_zoom_in_xml);
         btnZoomInCode = findViewById(R.id.btn_zoom_in_code);
+        btnZoomOutXml = findViewById(R.id.btn_zoom_out_xml);
+        btnZoomOutCode = findViewById(R.id.btn_zoom_out_code);
     }
 
     private void setupClickListeners() {
@@ -101,6 +103,20 @@ public class Q1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ivUitLogo.startAnimation(startZoomInAnimationCode());
+            }
+        });
+
+        //Zoom Out
+        btnZoomOutXml.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startZoomOutAnimationXML();
+            }
+        });
+        btnZoomInCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivUitLogo.startAnimation(startZoomOutAnimationCode());
             }
         });
 
@@ -171,5 +187,27 @@ public class Q1 extends AppCompatActivity {
         zoomInCode.setDuration(1000);
         return zoomInCode;
     }
+    //Zoom Out
+
+    private void startZoomOutAnimationXML() {
+        Animation zoomOutXML = AnimationUtils.loadAnimation(this, R.anim.anim_zoom_out);
+        zoomOutXML.setAnimationListener(animationListener);
+        ivUitLogo.startAnimation(zoomOutXML);
+    }
+    private ScaleAnimation startZoomOutAnimationCode() {
+        ScaleAnimation zoomOutCode = new ScaleAnimation(
+                1f,
+                0.5f,
+                1f,
+                0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f, // pivotXType and pivotXValue (center X)
+                Animation.RELATIVE_TO_SELF, 0.5f  // pivotYType and pivotYValue (center Y)
+        );
+        zoomOutCode.setDuration(1000);
+        zoomOutCode.setFillAfter(true); // Keep the final state of the animation
+        zoomOutCode.setAnimationListener(animationListener);
+        return zoomOutCode;
+    }
+
 
 }
