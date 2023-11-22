@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -43,6 +44,8 @@ public class Q1 extends AppCompatActivity {
         btnZoomInCode = findViewById(R.id.btn_zoom_in_code);
         btnZoomOutXml = findViewById(R.id.btn_zoom_out_xml);
         btnZoomOutCode = findViewById(R.id.btn_zoom_out_code);
+        btnRotateXml = findViewById(R.id.btn_rotate_xml);
+        btnRotateCode = findViewById(R.id.btn_rotate_code);
     }
 
     private void setupClickListeners() {
@@ -113,12 +116,28 @@ public class Q1 extends AppCompatActivity {
                 startZoomOutAnimationXML();
             }
         });
-        btnZoomInCode.setOnClickListener(new View.OnClickListener() {
+        btnZoomOutCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ivUitLogo.startAnimation(startZoomOutAnimationCode());
             }
         });
+
+        //Rotate
+        btnRotateXml.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startRotateAnimationXML();
+            }
+        });
+
+        btnRotateCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivUitLogo.startAnimation(startRotateAnimationCode());
+            }
+        });
+
 
     }
 
@@ -208,6 +227,33 @@ public class Q1 extends AppCompatActivity {
         zoomOutCode.setAnimationListener(animationListener);
         return zoomOutCode;
     }
+
+    //Rotate
+    private void startRotateAnimationXML() {
+        Animation rotateXML = AnimationUtils.loadAnimation(this, R.anim.anim_rotate);
+        rotateXML.setAnimationListener(animationListener);
+        ivUitLogo.startAnimation(rotateXML);
+    }
+
+    private RotateAnimation startRotateAnimationCode() {
+        RotateAnimation rotateCode = new RotateAnimation(
+                0f,  // fromDegrees
+                360f,  // toDegrees
+                Animation.RELATIVE_TO_SELF, 0.5f,  // pivotXType and pivotXValue (center X)
+                Animation.RELATIVE_TO_SELF, 0.5f  // pivotYType and pivotYValue (center Y)
+        );
+
+        rotateCode.setDuration(600);
+        rotateCode.setRepeatMode(Animation.RESTART);
+        rotateCode.setRepeatCount(2);
+        rotateCode.setInterpolator(new android.view.animation.CycleInterpolator(1));
+        rotateCode.setAnimationListener(animationListener);
+
+        return rotateCode;
+    }
+
+
+
 
 
 }
