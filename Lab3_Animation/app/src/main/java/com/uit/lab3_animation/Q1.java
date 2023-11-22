@@ -46,6 +46,15 @@ public class Q1 extends AppCompatActivity {
         btnZoomOutCode = findViewById(R.id.btn_zoom_out_code);
         btnRotateXml = findViewById(R.id.btn_rotate_xml);
         btnRotateCode = findViewById(R.id.btn_rotate_code);
+        btnMoveXml = findViewById(R.id.btn_move_xml);
+        btnMoveCode = findViewById(R.id.btn_move_code);
+        btnSlideUpXml = findViewById(R.id.btn_slide_up_xml);
+        btnSlideUpCode = findViewById(R.id.btn_slide_up_code);
+        btnBounceXml = findViewById(R.id.btn_bounce_xml);
+        btnBounceCode = findViewById(R.id.btn_bounce_code);
+        btnCombineXml = findViewById(R.id.btn_combine_xml);
+        btnCombineCode = findViewById(R.id.btn_combine_code);
+
     }
 
     private void setupClickListeners() {
@@ -135,6 +144,21 @@ public class Q1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ivUitLogo.startAnimation(startRotateAnimationCode());
+            }
+        });
+
+        //Move
+        btnMoveXml.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startMoveAnimationXML();
+            }
+        });
+
+        btnMoveCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivUitLogo.startAnimation(startMoveAnimationCode());
             }
         });
 
@@ -251,6 +275,31 @@ public class Q1 extends AppCompatActivity {
 
         return rotateCode;
     }
+
+    //Move
+    private void startMoveAnimationXML() {
+        Animation moveXML = AnimationUtils.loadAnimation(this, R.anim.anim_move);
+        moveXML.setAnimationListener(animationListener);
+        ivUitLogo.startAnimation(moveXML);
+    }
+
+    private AlphaAnimation startMoveAnimationCode() {
+        AlphaAnimation moveCode = new AlphaAnimation(
+                0f,  // fromDegrees
+                360f,  // toDegrees
+                Animation.RELATIVE_TO_SELF, 0.5f,  // pivotXType and pivotXValue (center X)
+                Animation.RELATIVE_TO_SELF, 0.5f  // pivotYType and pivotYValue (center Y)
+        );
+
+        moveCode.setDuration(600);
+        moveCode.setRepeatMode(Animation.RESTART);
+        moveCode.setRepeatCount(2);
+        moveCode.setInterpolator(new android.view.animation.CycleInterpolator(1));
+        moveCode.setAnimationListener(animationListener);
+
+        return moveCode;
+    }
+
 
 
 
