@@ -6,6 +6,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.BounceInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
@@ -177,6 +178,21 @@ public class Q1 extends AppCompatActivity {
             }
         });
 
+        //Bounce
+        btnBounceXml.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startBounceAnimationXML();
+            }
+        });
+
+        btnBounceCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivUitLogo.startAnimation(startBounceAnimationCode());
+            }
+        });
+
 
     }
 
@@ -335,6 +351,31 @@ public class Q1 extends AppCompatActivity {
 
         return slideUpCode;
     }
+
+    //Bounce
+    private void startBounceAnimationXML() {
+        Animation bounceXML = AnimationUtils.loadAnimation(this, R.anim.anim_bounce);
+        bounceXML.setAnimationListener(animationListener);
+        ivUitLogo.startAnimation(bounceXML);
+    }
+
+    private ScaleAnimation startBounceAnimationCode() {
+        ScaleAnimation bounceCode = new ScaleAnimation(
+                1.0f,  // fromXScale
+                1.0f,  // toXScale
+                0.5f,  // fromYScale (adjusted to create bounce effect)
+                1.0f,  // toYScale
+                Animation.RELATIVE_TO_SELF, 0.5f,  // pivotXType and pivotXValue (center X)
+                Animation.RELATIVE_TO_SELF, 0.5f   // pivotYType and pivotYValue (center Y)
+        );
+        bounceCode.setDuration(500);
+        bounceCode.setFillAfter(true); // Keep the final state of the animation
+        bounceCode.setInterpolator(new BounceInterpolator());
+        bounceCode.setAnimationListener(animationListener);
+
+        return bounceCode;
+    }
+
 
 
 
