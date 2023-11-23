@@ -2,11 +2,13 @@ package com.uit.lab3_animation;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -278,31 +280,24 @@ public class Q1 extends AppCompatActivity {
 
     //Move
     private void startMoveAnimationXML() {
-        Animation moveXML = AnimationUtils.loadAnimation(this, R.anim.anim_move);
+        Animation moveXML = AnimationUtils.loadAnimation(this, R.anim.amin_move);
         moveXML.setAnimationListener(animationListener);
         ivUitLogo.startAnimation(moveXML);
     }
 
-    private AlphaAnimation startMoveAnimationCode() {
-        AlphaAnimation moveCode = new AlphaAnimation(
-                0f,  // fromDegrees
-                360f,  // toDegrees
-                Animation.RELATIVE_TO_SELF, 0.5f,  // pivotXType and pivotXValue (center X)
-                Animation.RELATIVE_TO_SELF, 0.5f  // pivotYType and pivotYValue (center Y)
+    private TranslateAnimation startMoveAnimationCode() {
+        TranslateAnimation moveCode = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, 0f,  // fromXType and fromXValue
+                Animation.RELATIVE_TO_SELF, 1f,  // toXType and toXValue
+                Animation.RELATIVE_TO_SELF, 0f,  // fromYType and fromYValue
+                Animation.RELATIVE_TO_SELF, 0f   // toYType and toYValue
         );
-
-        moveCode.setDuration(600);
-        moveCode.setRepeatMode(Animation.RESTART);
-        moveCode.setRepeatCount(2);
-        moveCode.setInterpolator(new android.view.animation.CycleInterpolator(1));
+        moveCode.setDuration(1000);
+        moveCode.setInterpolator(new AccelerateDecelerateInterpolator());
         moveCode.setAnimationListener(animationListener);
 
         return moveCode;
     }
-
-
-
-
 
 
 }
