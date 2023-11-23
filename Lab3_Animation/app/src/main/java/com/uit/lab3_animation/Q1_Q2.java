@@ -1,5 +1,6 @@
 package com.uit.lab3_animation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -18,7 +19,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Q1 extends AppCompatActivity {
+public class Q1_Q2 extends AppCompatActivity {
 
     private Button btnFadeInXml, btnFadeInCode, btnFadeOutXml, btnFadeOutCode,
             btnBlinkXml, btnBlinkCode, btnZoomInXml, btnZoomInCode, btnZoomOutXml,
@@ -32,7 +33,7 @@ public class Q1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_q1);
+        setContentView(R.layout.activity_q1_q2);
         findViewsByIds();
         setupClickListeners();
     }
@@ -166,6 +167,8 @@ public class Q1 extends AppCompatActivity {
                 ivUitLogo.startAnimation(startMoveAnimationCode());
             }
         });
+
+        //SlideUp
         btnSlideUpXml.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -210,6 +213,14 @@ public class Q1 extends AppCompatActivity {
             }
         });
 
+        ivUitLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Q1_Q2.this, com.uit.lab3_animation.Q3.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_fade_out);
+            }
+        });
 
     }
 
@@ -260,6 +271,7 @@ public class Q1 extends AppCompatActivity {
         return blinkCode;
     }
 
+    //ZoomIn
     private void startZoomInAnimationXML() {
         Animation zoomInXML = AnimationUtils.loadAnimation(this, R.anim.anim_zoom_in);
         zoomInXML.setAnimationListener(animationListener);

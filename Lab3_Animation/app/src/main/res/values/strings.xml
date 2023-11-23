@@ -13,4 +13,5 @@
     <string name="slide_up">Slide Up</string>
     <string name="bounce">Bounce</string>
     <string name="combine">Combine</string>
+    <string name="btnBack">BACK</string>
 </resources>
