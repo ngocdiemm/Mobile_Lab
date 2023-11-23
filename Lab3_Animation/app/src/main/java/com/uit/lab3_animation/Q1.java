@@ -5,8 +5,10 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.BounceInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
@@ -193,6 +195,21 @@ public class Q1 extends AppCompatActivity {
             }
         });
 
+        //Combine
+        btnCombineXml.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startCombineAnimationXML();
+            }
+        });
+
+        btnCombineCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivUitLogo.startAnimation(startCombineAnimationCode());
+            }
+        });
+
 
     }
 
@@ -375,8 +392,45 @@ public class Q1 extends AppCompatActivity {
 
         return bounceCode;
     }
+    //Combine
+    private void startCombineAnimationXML() {
+        Animation combineXML = AnimationUtils.loadAnimation(this, R.anim.anim_combine);
+        combineXML.setAnimationListener(animationListener);
+        ivUitLogo.startAnimation(combineXML);
+    }
 
+    private Animation startCombineAnimationCode() {
+        AnimationSet combineCode = new AnimationSet(true);
 
+        // Scale animation
+        ScaleAnimation scaleAnimation = new ScaleAnimation(
+                1.0f,  // fromXScale
+                3.0f,  // toXScale
+                1.0f,  // fromYScale
+                3.0f,  // toYScale
+                Animation.RELATIVE_TO_SELF, 0.5f,  // pivotXType and pivotXValue (center X)
+                Animation.RELATIVE_TO_SELF, 0.5f   // pivotYType and pivotYValue (center Y)
+        );
+        scaleAnimation.setDuration(4000);
+        combineCode.addAnimation(scaleAnimation);
 
+        // Rotate animation
+        RotateAnimation rotateAnimation = new RotateAnimation(
+                0f,  // fromDegrees
+                360f,  // toDegrees
+                Animation.RELATIVE_TO_SELF, 0.5f,  // pivotXType and pivotXValue (center X)
+                Animation.RELATIVE_TO_SELF, 0.5f  // pivotYType and pivotYValue (center Y)
+        );
+        rotateAnimation.setDuration(500);
+        rotateAnimation.setRepeatCount(2);
+        rotateAnimation.setRepeatMode(Animation.RESTART);
+        combineCode.addAnimation(rotateAnimation);
+
+        combineCode.setFillAfter(true); // Keep the final state of the animation
+        combineCode.setInterpolator(new LinearInterpolator());
+        combineCode.setAnimationListener(animationListener);
+
+        return combineCode;
+    }
 
 }
