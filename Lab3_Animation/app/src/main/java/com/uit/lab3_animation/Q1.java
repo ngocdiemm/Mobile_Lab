@@ -163,6 +163,19 @@ public class Q1 extends AppCompatActivity {
                 ivUitLogo.startAnimation(startMoveAnimationCode());
             }
         });
+        btnSlideUpXml.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startSlideUpAnimationXML();
+            }
+        });
+
+        btnSlideUpCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivUitLogo.startAnimation(startSlideUpAnimationCode());
+            }
+        });
 
 
     }
@@ -298,6 +311,31 @@ public class Q1 extends AppCompatActivity {
 
         return moveCode;
     }
+
+    //SlideUp
+    private void startSlideUpAnimationXML() {
+        Animation slideUpXML = AnimationUtils.loadAnimation(this, R.anim.anim_slide_up);
+        slideUpXML.setAnimationListener(animationListener);
+        ivUitLogo.startAnimation(slideUpXML);
+    }
+
+    private ScaleAnimation startSlideUpAnimationCode() {
+        ScaleAnimation slideUpCode = new ScaleAnimation(
+                1.0f,  // fromXScale
+                1.0f,  // toXScale
+                1.0f,  // fromYScale
+                0.0f,  // toYScale
+                Animation.RELATIVE_TO_SELF, 0.5f,  // pivotXType and pivotXValue (center X)
+                Animation.RELATIVE_TO_SELF, 0.5f   // pivotYType and pivotYValue (center Y)
+        );
+        slideUpCode.setDuration(500);
+        slideUpCode.setFillAfter(true); // Keep the final state of the animation
+        slideUpCode.setInterpolator(new AccelerateDecelerateInterpolator());
+        slideUpCode.setAnimationListener(animationListener);
+
+        return slideUpCode;
+    }
+
 
 
 }
