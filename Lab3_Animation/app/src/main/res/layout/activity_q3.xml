@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="com.uit.Q3">
+    tools:context="com.uit.lab3_animation.Q3">
 
     <Button
         android:id="@+id/btnBack"

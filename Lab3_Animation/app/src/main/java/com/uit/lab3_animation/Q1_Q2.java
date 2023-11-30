@@ -218,7 +218,7 @@ public class Q1_Q2 extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Q1_Q2.this, com.uit.lab3_animation.Q3.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_fade_out);
+                overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_left);
             }
         });
 
